@@ -4,7 +4,6 @@ import Pagination from "@/components/Pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useDataCalls from "@/hooks/useDataCalls";
-import { paginateFunc } from "@/utils";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -15,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { paginateFunc } from "@/lib/utils";
 
 const LocationChars = () => {
   const [page, setPage] = useState(1);
@@ -52,10 +52,16 @@ const LocationChars = () => {
           className="w-60"
           value={search}
           placeholder="Search characters"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1);
+          }}
         />
         <Select
-          onValueChange={(value: string) => setStatus(value)}
+          onValueChange={(value: string) => {
+            setStatus(value);
+            setPage(1);
+          }}
           defaultValue="all"
         >
           <SelectTrigger className="w-48">
